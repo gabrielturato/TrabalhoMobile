@@ -77,11 +77,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getLocationPermission();
         mGeoDataClient = Places.getGeoDataClient(this, null);
 
-        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this,
-                Places.getGeoDataClient(this, null),
-                LAT_LNG_BOUNDS,
-                null);
-
         Intent in = getIntent();
         if(in != null){
             String t = in.getStringExtra("endereco");

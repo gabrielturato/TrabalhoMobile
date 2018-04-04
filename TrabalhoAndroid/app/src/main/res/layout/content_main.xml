@@ -8,28 +8,47 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="br.unicamp.ft.f170775.trabalhomobile.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:gravity="center">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal">
 
-    <Button
+        <Button
+            android:layout_width="@dimen/largIcon"
+            android:layout_height="@dimen/altIcon"
+            android:onClick="onClickMapa"
+            android:background="@drawable/mapicon"
+            />
+
+        <Button
+            android:layout_width="@dimen/largIcon"
+            android:layout_height="@dimen/altIcon"
+            android:onClick="onClickRestaurante"
+            android:background="@drawable/restauranticon"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClickMapa"
-        android:text="Mapa"
-        />
+        android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClickRestaurante"
-        android:text="Restaurante"
-        />
+        <Button
+            android:layout_width="@dimen/largIcon"
+            android:layout_height="@dimen/altIcon"
+            android:background="@drawable/marketicon"/>
+
+        <Button
+            android:layout_width="@dimen/largIcon"
+            android:layout_height="@dimen/altIcon"
+            android:background="@drawable/shoppingicon"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>

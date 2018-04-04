@@ -19,4 +19,5 @@
     <string name="title_activity_mercado">Mercado</string>
     <string name="title_activity_shopping">Shopping</string>
     <string name="title_activity_restaurant_drawer">RestaurantDrawer</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
