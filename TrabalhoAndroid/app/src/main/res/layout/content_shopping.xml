@@ -37,15 +37,16 @@
             />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonShopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonLocal"
             android:layout_marginEnd="10dp"
-            android:onClick="onClickButton"
+            android:onClick="onClickButtonShopping"
             android:backgroundTint="@color/White"
             android:textColor="@color/Black"
             />
+
     </LinearLayout>
 
 </LinearLayout>

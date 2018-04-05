@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
@@ -25,11 +26,11 @@ public class Shopping extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
-
+    private Button button;
 
     @Override
     public void onItemClick(Locals locals) {
-        this.local = local;
+        this.local = locals;
     }
 
     @Override
@@ -49,6 +50,7 @@ public class Shopping extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -59,6 +61,8 @@ public class Shopping extends AppCompatActivity
         local.add(new Locals("Shopping Naçôes", R.drawable.shoppingnacoes, "Rod. Dep. Laércio Côrte, 4500 - Jardim Res. Graminha III, Limeira"));
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
+
+
     }
 
     @Override
@@ -92,13 +96,6 @@ public class Shopping extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void onClickButton(View view){
-        //código para fazer a busca pela localização
-        Intent intent = new Intent(this, MapsActivity.class);
-        intent.putExtra("endereco", local.endereco);
-        startActivity(intent);
-    }
     
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -127,6 +124,13 @@ public class Shopping extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickButtonShopping(View view){
+        //código para fazer a busca pela localização
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("endereco", local.endereco);
+        startActivity(intent);
     }
 
 }
