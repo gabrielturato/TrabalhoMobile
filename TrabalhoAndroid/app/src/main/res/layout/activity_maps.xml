@@ -2,13 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/Gray">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_Busca"
         android:text="@string/text_busca"
+        android:textColor="@color/Black"
         android:layout_alignBaseline="@+id/edit_Busca"/>
 
     <AutoCompleteTextView
@@ -24,7 +26,9 @@
         android:layout_toRightOf="@+id/edit_Busca"
         android:id="@+id/button_Busca"
         android:text="@string/button_busca"
-        android:onClick="onClickBusca"/>
+        android:onClick="onClickBusca"
+        android:backgroundTint="@color/White"
+        android:textColor="@color/Black"/>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"

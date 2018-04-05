@@ -104,4 +104,14 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, RestaurantDrawer.class);
         startActivity(intent);
     }
+
+    public void onClickMercado(View view){
+        Intent intent = new Intent(this, Mercado.class);
+        startActivity(intent);
+    }
+
+    public void onClickShopping(View view){
+        Intent intent = new Intent(this, Shopping.class);
+        startActivity(intent);
+    }
 }

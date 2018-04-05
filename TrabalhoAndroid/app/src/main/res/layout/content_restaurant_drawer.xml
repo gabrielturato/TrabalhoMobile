@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout android:orientation="vertical"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    android:layout_marginStart="12dp"
-    android:layout_marginTop="56dp"
-    android:layout_marginEnd="6dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:background="@color/Gray"
+    >
 
-    <TextView
-        android:id="@+id/textViewRes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text01"
-        android:paddingBottom="15dp"
-        android:layout_marginEnd="10dp"
-        />
+        <LinearLayout android:orientation="vertical"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="6dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/my_recycler_view"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"
-        android:layout_marginEnd="10dp"
-        />
+            <TextView
+                android:id="@+id/textViewRes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text01"
+                android:paddingBottom="15dp"
+                android:layout_marginEnd="10dp"
+                />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/buttonLocal"
-        android:layout_marginEnd="10dp"
-        android:onClick="onClickButton"
-        />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonLocal"
+                android:layout_marginEnd="10dp"
+                android:onClick="onClickButton"
+                android:backgroundTint="@color/White"
+                android:textColor="@color/Black"
+                />
+        </LinearLayout>
+
 </LinearLayout>
