@@ -93,6 +93,13 @@ public class Shopping extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void onClickButton(View view){
+        //código para fazer a busca pela localização
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("endereco", local.endereco);
+        startActivity(intent);
+    }
+    
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
