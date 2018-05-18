@@ -52,7 +52,7 @@ public class Mercado extends Fragment
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        lView.setOnClickListener(new View.OnClickListener() {
+        lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), MapsActivity.class);
