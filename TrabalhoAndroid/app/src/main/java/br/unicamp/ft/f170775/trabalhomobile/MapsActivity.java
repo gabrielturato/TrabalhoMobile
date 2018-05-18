@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -100,6 +101,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mSearchText = (AutoCompleteTextView) findViewById(R.id.edit_Busca);
         getLocationPermission();
         mGeoDataClient = Places.getGeoDataClient(this, null);
+        fragmentManager = getSupportFragmentManager();
 
         Intent in = getIntent();
         if(in != null){
@@ -108,6 +110,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(this,"Pressione o botão buscar", Toast.LENGTH_LONG).show();
             //Fazer busca automatica
         }
+        Button button = (Button) findViewById(R.id.button_Busca);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                geoLocate();
+            }
+        });
     }
 
     public void execLocate(){geoLocate();}
@@ -235,9 +244,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    public void onClickBusca(View view){
+    /*public void onClickBusca(View view){
         geoLocate();
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -284,7 +293,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 restauranteFragment = new RestaurantDrawer();
             }
             replaceFragment(restauranteFragment, "telaRestaurante");
-
         } else if (id == R.id.nav_gallery) {
             Fragment mercadoFragment = fragmentManager.findFragmentByTag("telaMercado");
             if(mercadoFragment != null){
@@ -303,10 +311,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         } else if (id == R.id.nav_manage) {
             Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
