@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "619438312109",
+    "firebase_url": "https://trabalhomobile-c3d6c.firebaseio.com",
+    "project_id": "trabalhomobile-c3d6c",
+    "storage_bucket": "trabalhomobile-c3d6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619438312109:android:9844c26e250d7b56",
+        "android_client_info": {
+          "package_name": "br.unicamp.ft.f170775.trabalhomobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619438312109-d67hcc0sm2ogmtjnok6k381krvtktv8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCy-bG-NFT-hi34gQt_Pje9-v_aJoULniU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
