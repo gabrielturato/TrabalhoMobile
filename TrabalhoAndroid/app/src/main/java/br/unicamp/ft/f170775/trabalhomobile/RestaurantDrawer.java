@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class RestaurantDrawer extends Fragment
         implements MyAdapter.OnItemClickListener {
 
-    public Locals local;
+    public Locals locals;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
@@ -33,7 +33,7 @@ public class RestaurantDrawer extends Fragment
 
     @Override
     public void onItemClick(Locals locals) {
-        this.local = locals;
+        this.locals = locals;
     }
 
     @Override
@@ -56,7 +56,9 @@ public class RestaurantDrawer extends Fragment
         lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Voce apertou o botão para buscar", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getContext(), MapsActivity.class);
+                i.putExtra("endereco", locals.endereco);
+                startActivity(i);
             }
         });
         return lView;

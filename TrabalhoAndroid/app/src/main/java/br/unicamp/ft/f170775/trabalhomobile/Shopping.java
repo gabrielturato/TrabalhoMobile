@@ -1,6 +1,7 @@
 package br.unicamp.ft.f170775.trabalhomobile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +17,7 @@ public class Shopping extends Fragment
         implements MyAdapter.OnItemClickListener {
 
     private View lView;
-    public Locals local;
+    public Locals locals;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
@@ -24,7 +25,7 @@ public class Shopping extends Fragment
 
     @Override
     public void onItemClick(Locals locals) {
-        this.local = locals;
+        this.locals = locals;
     }
 
     @Override
@@ -43,6 +44,14 @@ public class Shopping extends Fragment
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
 
+        lView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), MapsActivity.class);
+                i.putExtra("endereco", locals.endereco);
+                startActivity(i);
+            }
+        });
         return lView;
     }
 

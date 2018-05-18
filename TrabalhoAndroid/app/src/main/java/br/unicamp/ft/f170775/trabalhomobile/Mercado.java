@@ -25,7 +25,7 @@ public class Mercado extends Fragment
         implements MyAdapter.OnItemClickListener {
 
     public View lView;
-    public Locals local;
+    public Locals locals;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
@@ -33,7 +33,7 @@ public class Mercado extends Fragment
 
     @Override
     public void onItemClick(Locals locals) {
-        this.local = locals;
+        this.locals = locals;
     }
 
     @Override
@@ -51,6 +51,15 @@ public class Mercado extends Fragment
         local.add(new Locals("Enxuto", R.drawable.enxuto, "R. Comendador Vicente Leone, 200 - Jardim Nossa Sra. de Fatima, Limeira"));
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
+
+        lView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), MapsActivity.class);
+                i.putExtra("endereco", locals.endereco);
+                startActivity(i);
+            }
+        });
 
         return lView;
     }
