@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,18 +25,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBufferResponse;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -48,6 +52,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -60,27 +65,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+    public static final int SIGN_IN_CODE = 777;
     private FragmentManager fragmentManager;
-
+    private String destination;
+    private GoogleApiClient googleApiClient;
     private GoogleMap mMap;
-    private AutoCompleteTextView mSearchText;
     private Marker marker;
     private static final float DEFAULT_ZOOM = 15f;
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(new LatLng(-40,-168), new LatLng(71,136));
-
+    private SignInButton signInButton;
     //vars
     private boolean mLocationPermissionGranted = false;
     private FusedLocationProviderClient mFusedLocationProviderCLient;
-    private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     protected GeoDataClient mGeoDataClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maps_activity);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -93,33 +100,96 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
 
 
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mSearchText = (AutoCompleteTextView) findViewById(R.id.edit_Busca);
         getLocationPermission();
         mGeoDataClient = Places.getGeoDataClient(this, null);
         fragmentManager = getSupportFragmentManager();
 
+
+
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                // TODO: obter informações sobre o local selecionado.
+                destination = place.getAddress().toString();
+                geoLocate();
+                Log.i("erro1", "Place: " + place.getName());
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Solucionar o erro.
+                Log.i("erro2", "Ocorreu um erro: " + status);
+            }
+        });
         Intent in = getIntent();
-        if(in != null){
+        if(in.getStringExtra("endereco") != null){
             String t = in.getStringExtra("endereco");
-            mSearchText.setText(t);
+            destination = t;
+            autocompleteFragment.setText(destination);
+            //geoLocate();
             Toast.makeText(this,"Pressione o botão buscar", Toast.LENGTH_LONG).show();
             //Fazer busca automatica
         }
-        Button button = (Button) findViewById(R.id.button_Busca);
+        /*Button button = (Button) findViewById(R.id.button_Busca);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 geoLocate();
             }
+        });*/
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder()
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        signInButton.findViewById(R.id.loginButtonGoogle).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, SIGN_IN_CODE);
+
+            }
         });
     }
 
-    public void execLocate(){geoLocate();}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == SIGN_IN_CODE){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignResult(result);
+        }
+    }
+
+    private void handleSignResult(GoogleSignInResult result) {
+        if(result.isSuccess()){
+            goMapsScreen();
+        }
+        else{
+            Toast.makeText(this, R.string.LOGIN_FAILED, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void goMapsScreen() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
+    //public void execLocate(){geoLocate();}
 
 
     private void getDeviceLocation() {
@@ -168,8 +238,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
         mMap.getUiSettings().setZoomControlsEnabled(true);
         if (mLocationPermissionGranted) {
@@ -223,7 +291,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void geoLocate(){
-        String searchString = mSearchText.getText().toString();
+        String searchString = destination;
         Geocoder geocoder = new Geocoder(MapsActivity.this);
         List<Address> list = new ArrayList<>();
         hideSoftKeyboard();
@@ -236,6 +304,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(list.size() > 0){
             Address address = list.get(0);
             moveCamera(new LatLng(address.getLatitude(), address.getLongitude()),DEFAULT_ZOOM, address.getAddressLine(0));
+        }else {
+            Toast.makeText(this, "Nenhum local encontrado. Pesquise novamente.", Toast.LENGTH_LONG).show();
         }
 
     }
