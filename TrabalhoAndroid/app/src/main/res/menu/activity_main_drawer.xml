@@ -20,6 +20,12 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/mapicon"
             android:title="@string/textMap" />
+
+        <item
+            android:id="@+id/loginGoogle"
+            android:title="Fazer login"
+            />
+
     </group>
 
 </menu>

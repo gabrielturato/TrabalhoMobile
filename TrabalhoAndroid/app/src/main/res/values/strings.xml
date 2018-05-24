@@ -35,4 +35,5 @@
         completions."
     </string>
     <string name="LOGIN_FAILED">Não foi possivel realizar o login, tente novamente.</string>
+    <string name="showLogin">Você não está logado</string>
 </resources>

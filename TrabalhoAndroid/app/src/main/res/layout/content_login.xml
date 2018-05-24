@@ -67,6 +67,14 @@
                 android:backgroundTint="@color/White"
                 android:textColor="@color/Black"
                 android:fontFamily="serif"/>
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/loginButtonGoogle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </com.google.android.gms.common.SignInButton>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
