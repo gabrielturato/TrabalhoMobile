@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,9 +74,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     private FragmentManager fragmentManager;
     private String destination;
-    private TextView showLoginText;
     private String userEmail;
     private DrawerLayout drawer;
+    public TextView showLogin;
 
     private GoogleApiClient googleApiClient;
 
@@ -109,11 +110,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener) this);
 
-        showLoginText = (TextView) findViewById(R.id.showLogin);
 
+        View navHeaderView = navigationView.getHeaderView(0);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -171,9 +173,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 geoLocate();
             }
         });*/
-
-
+        showLogin = (TextView) navHeaderView.findViewById(R.id.showLogin);
     }
+
+
 
     @Override
     protected void onStart() {
@@ -197,6 +200,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(result.isSuccess()){
             GoogleSignInAccount account = result.getSignInAccount();
             Toast.makeText(this, "Bem vindo " + account.getEmail(), Toast.LENGTH_SHORT).show();
+            userEmail = account.getEmail();
+            showLogin.setText(userEmail);
         }else{
             goLogInScreen();
         }

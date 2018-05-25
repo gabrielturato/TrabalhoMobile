@@ -23,7 +23,7 @@
 
         <item
             android:id="@+id/loginGoogle"
-            android:title="Fazer login"
+            android:title="@string/sairApp"
             />
 
     </group>
