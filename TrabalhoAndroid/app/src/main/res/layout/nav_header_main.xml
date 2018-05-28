@@ -26,6 +26,13 @@
         android:text="@string/showLogin"
         />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/loginButtonGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.google.android.gms.common.SignInButton>
+
 
 
 </LinearLayout>

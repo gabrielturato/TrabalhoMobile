@@ -65,6 +65,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.unicamp.ft.f170775.trabalhomobile.LoginActivity.SIGN_IN_CODE;
+
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener, NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -72,11 +74,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
     private FragmentManager fragmentManager;
     private String destination;
     private String userEmail;
     private DrawerLayout drawer;
     public TextView showLogin;
+    private SignInButton signInButton;
+    public static final int SIGN_IN_CODE = 777;
 
     private GoogleApiClient googleApiClient;
 
@@ -116,14 +122,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         View navHeaderView = navigationView.getHeaderView(0);
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -173,10 +171,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 geoLocate();
             }
         });*/
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
         showLogin = (TextView) navHeaderView.findViewById(R.id.showLogin);
+        signInButton = (SignInButton) navHeaderView.findViewById(R.id.loginButtonGoogle);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(intent, SIGN_IN_CODE);
+
+            }
+        });
     }
-
-
 
     @Override
     protected void onStart() {
@@ -199,18 +214,51 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void handleSignUpResult(GoogleSignInResult result) {
         if(result.isSuccess()){
             GoogleSignInAccount account = result.getSignInAccount();
-            Toast.makeText(this, "Bem vindo " + account.getEmail(), Toast.LENGTH_SHORT).show();
-            userEmail = account.getEmail();
-            showLogin.setText(userEmail);
+            Toast.makeText(this, "Bem vindo " + account.getDisplayName(), Toast.LENGTH_SHORT).show();
+            showLogin.setText(result.getSignInAccount().getEmail());
+            signInButton.setVisibility(View.INVISIBLE);
         }else{
-            goLogInScreen();
+
         }
     }
 
-    private void goLogInScreen() {
-        Intent in = new Intent(this, LoginActivity.class);
-        startActivity(in);
+    //Teste de login pelo navigation view
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SIGN_IN_CODE){
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignResult(result);
+        }
     }
+
+    private void handleSignResult(GoogleSignInResult result) {
+        if(result.isSuccess()){
+            Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+            signInButton.setVisibility(View.INVISIBLE);
+            showLogin.setText(result.getSignInAccount().getEmail());
+        }
+        else{
+            Toast.makeText(this, R.string.LOGIN_FAILED, Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    public void logOut(){
+        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+            @Override
+            public void onResult(@NonNull Status status) {
+                if (status.isSuccess()){
+                    showLogin.setText(R.string.do_login);
+                    signInButton.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(MapsActivity.this, "Não foi possivel encerrar sessão", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    //Teste de login pelo navigation view
+
+
 
 //public void execLocate(){geoLocate();}
 
@@ -406,8 +454,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
         }else if(id == R.id.loginGoogle){
-            Intent inten = new Intent(this, LoginActivity.class);
-            startActivity(inten);
+            logOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
