@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
 
-public class UserChooseFragment extends AppCompatActivity{
+public class UserChooseFragment extends AppCompatActivity implements RatingBar.OnClickListener, RatingBar.OnRatingBarChangeListener{
 
     private String name;
     private String endereco;
     private int image;
+    private int avaliacao;
 
 
 
@@ -31,7 +33,7 @@ public class UserChooseFragment extends AppCompatActivity{
 
         Intent in = getIntent();
         endereco = in.getStringExtra("endereco");
-        name = in.getStringExtra(name);
+        name = in.getStringExtra("name");
         image = in.getIntExtra("image", 0);
         ImageView imageView = (ImageView) findViewById(R.id.imageLocal);
         TextView nomeLocal = (TextView) findViewById(R.id.nomeLocal);
@@ -42,4 +44,18 @@ public class UserChooseFragment extends AppCompatActivity{
 
     }
 
+    @Override
+    public void onClick(View v) {
+        
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+        avaliacao = (int) ratingBar.getRating();
+    }
 }

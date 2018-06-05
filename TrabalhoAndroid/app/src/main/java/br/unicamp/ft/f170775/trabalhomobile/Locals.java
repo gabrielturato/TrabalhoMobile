@@ -28,11 +28,11 @@ public class Locals {
     }
 
     public int totalStars(){
-        return oneStar + twoStar + threeStar + fourStar + fiveStar;
+        return getOneStar() + getTwoStar() + getThreeStar() + getFourStar() + getFiveStar();
     }
 
     public int mediaStars(){
-        return (oneStar*1 + twoStar*2 + threeStar*3 + fourStar*4 + fiveStar*5)/totalStars();
+        return (getOneStar()*1 + getTwoStar()*2 + getThreeStar()*3 + getFourStar()*4 + getFiveStar()*5)/totalStars();
     }
 
     public int getOneStar() {

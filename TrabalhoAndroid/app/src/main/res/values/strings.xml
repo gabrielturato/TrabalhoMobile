@@ -38,4 +38,6 @@
     <string name="showLogin">Você não está logado</string>
     <string name="sairApp">Logout</string>
     <string name="do_login">Faça o login</string>
+    <string name="avaliar_local">Avalie este local</string>
+    <string name="ver_no_mapa">Ver no mapa</string>
 </resources>
