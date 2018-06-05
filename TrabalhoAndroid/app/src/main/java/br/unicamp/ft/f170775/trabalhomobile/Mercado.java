@@ -19,6 +19,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class Mercado extends Fragment
@@ -29,6 +32,7 @@ public class Mercado extends Fragment
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
+    private DatabaseReference mFirebaseDatabaseReference;
 
 
     @Override
@@ -46,7 +50,9 @@ public class Mercado extends Fragment
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         ArrayList<Locals> local = new ArrayList<>();
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         local.add(new Locals("Santa Rita", R.drawable.santarita, "Av. Cônego Manoel Alves, 678 - Jardim Sao Paulo, Limeira"));
+        mFirebaseDatabaseReference.child("Mercado").push().setValue(local.get(0));
         local.add(new Locals("Covabra", R.drawable.covabra, "Av. Campinas, 50 - Vila Cidade Jardim, Limeira"));
         local.add(new Locals("Enxuto", R.drawable.enxuto, "R. Comendador Vicente Leone, 200 - Jardim Nossa Sra. de Fatima, Limeira"));
         mAdapter = new MyAdapter(local, this);
