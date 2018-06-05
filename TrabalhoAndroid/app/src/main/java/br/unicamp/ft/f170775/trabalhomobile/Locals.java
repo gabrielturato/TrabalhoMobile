@@ -16,6 +16,10 @@ public class Locals {
     int fiveStar;
 
 
+    public Locals(){
+
+    }
+
     public Locals(String name, int resId, String endereco, int oneStar, int twoStar, int threeStar, int fourStar, int fiveStar) {
         this.name = name;
         this.resId = resId;

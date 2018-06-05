@@ -41,6 +41,27 @@ public class Mercado extends Fragment
     private DatabaseReference mFirebaseDatabaseReference;
     private ArrayList<Locals> local = new ArrayList<>();
 
+    private void setValorImagem(){
+        for(Locals L:local){
+            switch (L.getName()){
+                case "Covabra":
+                    local.get(0).setResId(R.drawable.covabra);
+                    break;
+                case "Enxuto":
+                    local.get(1).setResId(R.drawable.enxuto);
+                    break;
+                case "Santa Rita":
+                    local.get(2).setResId(R.drawable.santarita);
+                    break;
+            }
+        }
+    }
+
+    public void passarArrayParaAdapter(ArrayList<Locals> locais){
+        setValorImagem();
+        mAdapter = new MyAdapter(locais, this);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
     @Override
     public void onItemClick(Locals locals) {
@@ -56,6 +77,7 @@ public class Mercado extends Fragment
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
+        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,6 +85,7 @@ public class Mercado extends Fragment
                 for (DataSnapshot remoteLocal: remoteLocals.getChildren()) {
                     local.add(remoteLocal.getValue(Locals.class));
                 }
+                passarArrayParaAdapter(local);
             }
             @Override
             public void onCancelled(DatabaseError error) {
@@ -70,11 +93,6 @@ public class Mercado extends Fragment
                 Log.w(TAG,"Failed to read value.", error.toException());
             }
         });
-        //local.add(new Locals("Santa Rita", R.drawable.santarita, "Av. Cônego Manoel Alves, 678 - Jardim Sao Paulo, Limeira"));
-        //local.add(new Locals("Covabra", R.drawable.covabra, "Av. Campinas, 50 - Vila Cidade Jardim, Limeira"));
-        //local.add(new Locals("Enxuto", R.drawable.enxuto, "R. Comendador Vicente Leone, 200 - Jardim Nossa Sra. de Fatima, Limeira"));
-        mAdapter = new MyAdapter(local, this);
-        mRecyclerView.setAdapter(mAdapter);
 
         lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override

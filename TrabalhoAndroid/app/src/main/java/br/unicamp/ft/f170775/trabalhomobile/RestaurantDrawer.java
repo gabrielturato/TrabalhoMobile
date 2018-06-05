@@ -46,10 +46,10 @@ public class RestaurantDrawer extends Fragment
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         ArrayList<Locals> local = new ArrayList<>();
-        local.add(new Locals("Subway", R.drawable.subway, "Av. Piracicaba, 569 - Vila Sao Joao, Limeira"));
-        local.add(new Locals("Jangada", R.drawable.jangada, "Av. Ismael Ferreira dos Santos, 694 - Parque Egisto Ragazzo, Limeira"));
-        local.add(new Locals("Maverick", R.drawable.maverick, "R. Paschoal Marmo, 908 - Jardim Piratininga, Limeira"));
-        local.add(new Locals("McDonalds", R.drawable.mcdonalds, "Av. Comendador Agostinho Prada, 1731 - Jardim Maria Buchi Modeneis, Limeira"));
+        //local.add(new Locals("Subway", R.drawable.subway, "Av. Piracicaba, 569 - Vila Sao Joao, Limeira"));
+        //local.add(new Locals("Jangada", R.drawable.jangada, "Av. Ismael Ferreira dos Santos, 694 - Parque Egisto Ragazzo, Limeira"));
+        //local.add(new Locals("Maverick", R.drawable.maverick, "R. Paschoal Marmo, 908 - Jardim Piratininga, Limeira"));
+        //local.add(new Locals("McDonalds", R.drawable.mcdonalds, "Av. Comendador Agostinho Prada, 1731 - Jardim Maria Buchi Modeneis, Limeira"));
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
 

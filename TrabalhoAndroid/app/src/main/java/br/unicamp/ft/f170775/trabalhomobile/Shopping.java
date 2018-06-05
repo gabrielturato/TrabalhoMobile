@@ -39,8 +39,8 @@ public class Shopping extends Fragment
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         ArrayList<Locals> local = new ArrayList<>();
-        local.add(new Locals("Shopping Pátio Limeira", R.drawable.shoppingpatio, "R. Carlos Gomes, 1321 - Centro, Limeira "));
-        local.add(new Locals("Shopping Naçôes", R.drawable.shoppingnacoes, "Rod. Dep. Laércio Côrte, 4500 - Jardim Res. Graminha III, Limeira"));
+        //local.add(new Locals("Shopping Pátio Limeira", R.drawable.shoppingpatio, "R. Carlos Gomes, 1321 - Centro, Limeira "));
+        //local.add(new Locals("Shopping Naçôes", R.drawable.shoppingnacoes, "Rod. Dep. Laércio Côrte, 4500 - Jardim Res. Graminha III, Limeira"));
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
 
