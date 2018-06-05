@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -19,10 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class Mercado extends Fragment
         implements MyAdapter.OnItemClickListener {
@@ -33,6 +39,7 @@ public class Mercado extends Fragment
     private RecyclerView.LayoutManager mLayoutManager;
     private MyAdapter mAdapter;
     private DatabaseReference mFirebaseDatabaseReference;
+    private ArrayList<Locals> local = new ArrayList<>();
 
 
     @Override
@@ -49,12 +56,23 @@ public class Mercado extends Fragment
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this.getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        ArrayList<Locals> local = new ArrayList<>();
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        local.add(new Locals("Santa Rita", R.drawable.santarita, "Av. Cônego Manoel Alves, 678 - Jardim Sao Paulo, Limeira"));
-        mFirebaseDatabaseReference.child("Mercado").push().setValue(local.get(0));
-        local.add(new Locals("Covabra", R.drawable.covabra, "Av. Campinas, 50 - Vila Cidade Jardim, Limeira"));
-        local.add(new Locals("Enxuto", R.drawable.enxuto, "R. Comendador Vicente Leone, 200 - Jardim Nossa Sra. de Fatima, Limeira"));
+        mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot remoteLocals = dataSnapshot.child("Mercados");
+                for (DataSnapshot remoteLocal: remoteLocals.getChildren()) {
+                    local.add(remoteLocal.getValue(Locals.class));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG,"Failed to read value.", error.toException());
+            }
+        });
+        //local.add(new Locals("Santa Rita", R.drawable.santarita, "Av. Cônego Manoel Alves, 678 - Jardim Sao Paulo, Limeira"));
+        //local.add(new Locals("Covabra", R.drawable.covabra, "Av. Campinas, 50 - Vila Cidade Jardim, Limeira"));
+        //local.add(new Locals("Enxuto", R.drawable.enxuto, "R. Comendador Vicente Leone, 200 - Jardim Nossa Sra. de Fatima, Limeira"));
         mAdapter = new MyAdapter(local, this);
         mRecyclerView.setAdapter(mAdapter);
 
