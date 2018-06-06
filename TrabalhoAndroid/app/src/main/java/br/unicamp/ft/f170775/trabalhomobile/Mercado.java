@@ -66,6 +66,9 @@ public class Mercado extends Fragment
     @Override
     public void onItemClick(Locals locals) {
         this.locals = locals;
+        Intent in = new Intent(getContext(), UserChooseFragment.class);
+        in.putExtra("local", locals);
+        startActivity(in);
     }
 
     @Override

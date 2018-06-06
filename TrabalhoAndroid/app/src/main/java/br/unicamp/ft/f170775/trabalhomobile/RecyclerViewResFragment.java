@@ -1,6 +1,7 @@
 package br.unicamp.ft.f170775.trabalhomobile;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RecyclerViewResFragment extends Fragment implements MyAdapter.OnItemClickListener {
+public class RecyclerViewResFragment extends Fragment implements MyAdapter.OnItemClickListener{
 
     public Locals local;
     private RecyclerView mRecyclerView;
@@ -56,5 +58,7 @@ public class RecyclerViewResFragment extends Fragment implements MyAdapter.OnIte
     @Override
     public void onItemClick(Locals locals) {
         this.local = locals;
+        Intent in = new Intent(getContext(), UserChooseFragment.class);
+        in.putExtra("local", local);
     }
 }

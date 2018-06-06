@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.unicamp.ft.f170775.trabalhomobile.MainActivity"
+    tools:context="br.unicamp.ft.f170775.trabalhomobile.MapsActivity"
     tools:showIn="@layout/app_bar_main"
     android:orientation="vertical"
     android:background="@color/Gray">
@@ -14,6 +14,7 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginTop="56dp"
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
@@ -24,14 +25,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="70dp"
         android:background="@color/Gray">
 
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="0dp"
+            >
             <fragment
                 android:id="@+id/place_autocomplete_fragment"
                 android:layout_width="match_parent"

@@ -37,13 +37,13 @@ public class Shopping extends Fragment
     private void setValorImagem(){
         for(Locals L:local){
             switch (L.getName()){
-                case "Center":
+                case "Shopping Center Limeira":
                     local.get(0).setResId(R.drawable.shoppingcenter);
                     break;
-                case "Nacoes":
+                case "Shopping Nações Limeira":
                     local.get(1).setResId(R.drawable.shoppingnacoes);
                     break;
-                case "Patio":
+                case "Pátio Limeira Shopping":
                     local.get(2).setResId(R.drawable.shoppingpatio);
                     break;
             }
@@ -59,6 +59,9 @@ public class Shopping extends Fragment
     @Override
     public void onItemClick(Locals locals) {
         this.locals = locals;
+        Intent in = new Intent(getContext(), UserChooseFragment.class);
+        in.putExtra("local", locals);
+        startActivity(in);
     }
 
     @Override

@@ -32,14 +32,17 @@ public class UserChooseFragment extends AppCompatActivity implements RatingBar.O
 
 
         Intent in = getIntent();
-        endereco = in.getStringExtra("endereco");
-        name = in.getStringExtra("name");
-        image = in.getIntExtra("image", 0);
+        Locals local = (Locals) in.getSerializableExtra("local");
+        image = local.getResId();
         ImageView imageView = (ImageView) findViewById(R.id.imageLocal);
         TextView nomeLocal = (TextView) findViewById(R.id.nomeLocal);
         TextView enderecoLocal = (TextView) findViewById(R.id.enderecoLocal);
-        nomeLocal.setText(name);
-        enderecoLocal.setText(endereco);
+        TextView totalAvaliacoes = (TextView) findViewById(R.id.totalAvaliacoes);
+        totalAvaliacoes.setText(""+local.totalStars());
+        TextView mediaAvaliacoes = (TextView) findViewById(R.id.mediaAvaliacoes);
+        mediaAvaliacoes.setText(""+local.mediaStars());
+        nomeLocal.setText(local.getName());
+        enderecoLocal.setText(local.getEndereco());
         imageView.setImageResource(image);
 
     }

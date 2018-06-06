@@ -1,10 +1,12 @@
 package br.unicamp.ft.f170775.trabalhomobile;
 
+import java.io.Serializable;
+
 /**
  * Created by faad2 on 01/04/2018.
  */
 
-public class Locals {
+public class Locals implements Serializable{
 
     String name;
     int resId;
@@ -36,7 +38,11 @@ public class Locals {
     }
 
     public int mediaStars(){
-        return (getOneStar()*1 + getTwoStar()*2 + getThreeStar()*3 + getFourStar()*4 + getFiveStar()*5)/totalStars();
+        if(totalStars() == 0){
+            return 0;
+        }else {
+            return (getOneStar() * 1 + getTwoStar() * 2 + getThreeStar() * 3 + getFourStar() * 4 + getFiveStar() * 5) / totalStars();
+        }
     }
 
     public int getOneStar() {
