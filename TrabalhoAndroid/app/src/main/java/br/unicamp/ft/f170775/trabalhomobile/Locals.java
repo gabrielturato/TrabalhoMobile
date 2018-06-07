@@ -1,6 +1,8 @@
 package br.unicamp.ft.f170775.trabalhomobile;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Created by faad2 on 01/04/2018.
@@ -37,13 +39,22 @@ public class Locals implements Serializable{
         return getOneStar() + getTwoStar() + getThreeStar() + getFourStar() + getFiveStar();
     }
 
-    public int mediaStars(){
+    public String mediaStars(){
+        double media;
+        NumberFormat numberFormat = NumberFormat.getInstance(new Locale("pt", "BR"));
+        numberFormat.setMaximumFractionDigits(2);
         if(totalStars() == 0){
-            return 0;
+            return "0,00";
         }else {
-            return (getOneStar() * 1 + getTwoStar() * 2 + getThreeStar() * 3 + getFourStar() * 4 + getFiveStar() * 5) / totalStars();
+            double somaEstrelas = ((getOneStar() * 1) + (getTwoStar() * 2) + (getThreeStar() * 3) + (getFourStar() * 4)
+                    + (getFiveStar() * 5));
+            double divisor = totalStars();
+            media = (somaEstrelas / divisor);
+
+            return numberFormat.format(media);
         }
     }
+
 
     public int getOneStar() {
         return oneStar;

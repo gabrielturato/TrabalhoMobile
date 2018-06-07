@@ -89,19 +89,78 @@ public class UserChooseFragment extends AppCompatActivity{
                 verificaStarsRestaurantes(avaliacao, "Mcdonalds");
                 break;
             case "Santa Rita":
+                verificaStarsMercado(avaliacao, "Santarita");
                 break;
             case "Enxuto":
+                verificaStarsMercado(avaliacao, "Enxuto");
                 break;
             case "Covabra":
+                verificaStarsMercado(avaliacao, "Covabra");
                 break;
             case "Pátio Limeira Shopping":
+                verificaStarShopping(avaliacao, "Patio");
                 break;
             case "Shopping Center Limeira":
+                verificaStarShopping(avaliacao, "Center");
                 break;
             case "Shopping Nações Limeira":
+                verificaStarShopping(avaliacao, "Nacoes");
                 break;
         }
     }
+
+    public void verificaStarShopping(int avaliacao, String nome){
+        Map<String, Object> hopperUpdates = new HashMap<>();
+        switch (avaliacao){
+            case 1:
+                hopperUpdates.put("oneStar", local.getOneStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 2:
+                hopperUpdates.put("twoStar", local.getTwoStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 3:
+                hopperUpdates.put("threeStar", local.getThreeStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 4:
+                hopperUpdates.put("fourStar", local.getFourStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 5:
+                hopperUpdates.put("fiveStar", local.getFiveStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+        }
+    }
+
+    public void verificaStarsMercado(int avaliacao, String nome){
+        Map<String, Object> hopperUpdates = new HashMap<>();
+        switch (avaliacao){
+            case 1:
+                hopperUpdates.put("oneStar", local.getOneStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 2:
+                hopperUpdates.put("twoStar", local.getTwoStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 3:
+                hopperUpdates.put("threeStar", local.getThreeStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 4:
+                hopperUpdates.put("fourStar", local.getFourStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+            case 5:
+                hopperUpdates.put("fiveStar", local.getFiveStar()+1);
+                restaurantes.child(nome).updateChildren(hopperUpdates);
+                break;
+        }
+    }
+
 
     public void verificaStarsRestaurantes(int avaliacao, String nome){
         Map<String, Object> hopperUpdates = new HashMap<>();
