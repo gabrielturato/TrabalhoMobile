@@ -40,5 +40,6 @@
     <string name="do_login">Faça o login</string>
     <string name="avaliar_local">Avalie este local</string>
     <string name="ver_no_mapa">Ver no mapa</string>
-    <string name="totalAvaliacoes">Total de avaliações</string>
+    <string name="totalAvaliacoes">Total de avaliações: </string>
+    <string name="mediaAvaliações">Média das avaliações</string>
 </resources>

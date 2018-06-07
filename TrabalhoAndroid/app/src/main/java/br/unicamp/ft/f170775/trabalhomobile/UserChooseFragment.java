@@ -82,6 +82,12 @@ public class UserChooseFragment extends AppCompatActivity{
 
     }
 
+    public void onClickBusca(View v){
+        Intent i = new Intent(this, MapsActivity.class);
+        i.putExtra("endereco", local.getEndereco());
+        startActivity(i);
+    }
+
     public void onClickAvaliar(View v){
         String nomeFirebase = "";
         switch(local.getName()){
@@ -98,7 +104,7 @@ public class UserChooseFragment extends AppCompatActivity{
                 verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Mc'Donalds":
-                nomeFirebase = "Subway";
+                nomeFirebase = "Mcdonalds";
                 verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Santa Rita":
@@ -144,8 +150,6 @@ public class UserChooseFragment extends AppCompatActivity{
             });
 
         }
-        totalAvaliacoes.setText(""+local.totalStars());
-        mediaAvaliacoes.setText(""+local.mediaStars());
     }
 
     public void verificaStarShopping(int avaliacao, String nome){
@@ -153,23 +157,23 @@ public class UserChooseFragment extends AppCompatActivity{
         switch (avaliacao){
             case 1:
                 hopperUpdates.put("oneStar", local.getOneStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                shoppings.child(nome).updateChildren(hopperUpdates);
                 break;
             case 2:
                 hopperUpdates.put("twoStar", local.getTwoStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                shoppings.child(nome).updateChildren(hopperUpdates);
                 break;
             case 3:
                 hopperUpdates.put("threeStar", local.getThreeStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                shoppings.child(nome).updateChildren(hopperUpdates);
                 break;
             case 4:
                 hopperUpdates.put("fourStar", local.getFourStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                shoppings.child(nome).updateChildren(hopperUpdates);
                 break;
             case 5:
                 hopperUpdates.put("fiveStar", local.getFiveStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                shoppings.child(nome).updateChildren(hopperUpdates);
                 break;
         }
     }
@@ -179,23 +183,23 @@ public class UserChooseFragment extends AppCompatActivity{
         switch (avaliacao){
             case 1:
                 hopperUpdates.put("oneStar", local.getOneStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                mercados.child(nome).updateChildren(hopperUpdates);
                 break;
             case 2:
                 hopperUpdates.put("twoStar", local.getTwoStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                mercados.child(nome).updateChildren(hopperUpdates);
                 break;
             case 3:
                 hopperUpdates.put("threeStar", local.getThreeStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                mercados.child(nome).updateChildren(hopperUpdates);
                 break;
             case 4:
                 hopperUpdates.put("fourStar", local.getFourStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                mercados.child(nome).updateChildren(hopperUpdates);
                 break;
             case 5:
                 hopperUpdates.put("fiveStar", local.getFiveStar()+1);
-                restaurantes.child(nome).updateChildren(hopperUpdates);
+                mercados.child(nome).updateChildren(hopperUpdates);
                 break;
         }
     }

@@ -99,14 +99,6 @@ public class RestaurantDrawer extends Fragment
             }
         });
 
-        lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), MapsActivity.class);
-                i.putExtra("endereco", locals.endereco);
-                startActivity(i);
-            }
-        });
         return lView;
     }
 

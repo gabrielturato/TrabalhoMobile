@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:style="http://schemas.android.com/apk/res-auto"
     tools:context=".UserChooseFragment">
 
     <LinearLayout
@@ -11,6 +12,8 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:text="Endereço do local"
                     />
 
@@ -67,16 +70,27 @@
                     android:layout_height="wrap_content"
                     android:text="Total de avaliações: "/>-->
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/mediaAvaliações"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-condensed"
+                    />
                 <RatingBar
                     android:id="@+id/mediaAvaliacoes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
+
+
                     />
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    >
 
                     <TextView
                         android:id="@+id/texto"
@@ -85,15 +99,16 @@
                         android:layout_marginTop="5dp"
                         android:text="@string/totalAvaliacoes"
                         android:layout_centerHorizontal="true"
+                        android:fontFamily="sans-serif-condensed"
                     />
 
                     <TextView
                         android:id="@+id/totalAvaliacoes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_alignRight="@id/texto"/>
+                        android:layout_alignBaseline="@+id/texto"
+                        android:layout_marginStart="10dp"
+                        android:layout_toRightOf="@+id/texto"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -121,6 +136,7 @@
                 android:layout_marginTop="50dp"
                 />
             <Button
+                android:id="@+id/buttonAvaliar"
                 android:onClick="onClickAvaliar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,7 +157,8 @@
             android:id="@+id/buscarLocal"
             android:text="@string/ver_no_mapa"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            android:onClick="onClickBusca"/>
 
     </RelativeLayout>
 

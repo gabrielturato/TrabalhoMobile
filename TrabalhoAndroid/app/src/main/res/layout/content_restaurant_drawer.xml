@@ -28,16 +28,6 @@
                 android:layout_marginEnd="10dp"
                 />
 
-            <Button
-                android:id="@+id/buttonRestaurante"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/buttonLocal"
-                android:layout_marginEnd="10dp"
-                android:onClick="onClickButton"
-                android:backgroundTint="@color/White"
-                android:textColor="@color/Black"
-                />
         </LinearLayout>
 
 </LinearLayout>
