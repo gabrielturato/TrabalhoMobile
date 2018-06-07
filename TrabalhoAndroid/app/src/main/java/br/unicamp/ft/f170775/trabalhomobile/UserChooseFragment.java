@@ -84,7 +84,11 @@ public class UserChooseFragment extends AppCompatActivity{
 
     public void onClickBusca(View v){
         Intent i = new Intent(this, MapsActivity.class);
-        i.putExtra("endereco", local.getEndereco());
+        if(local.getName().equals("Shopping Nações Limeira")){
+            i.putExtra("endereco", local.getName());
+        }else{
+            i.putExtra("endereco", local.getEndereco());
+        }
         startActivity(i);
     }
 
