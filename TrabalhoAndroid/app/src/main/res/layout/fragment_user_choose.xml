@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="100dp"
             android:layout_marginBottom="10dp"
             >
             <ImageView
@@ -60,29 +61,55 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                android:orientation="vertical">
+                <!-- <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Total de avaliações: "/>
+                    android:text="Total de avaliações: "/>-->
 
-                <TextView
-                    android:id="@+id/totalAvaliacoes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Média das avaliações: "
-                    />
-                <TextView
+                <RatingBar
                     android:id="@+id/mediaAvaliacoes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""/>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/texto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/totalAvaliacoes"
+                        android:layout_centerHorizontal="true"
+                    />
+
+                    <TextView
+                        android:id="@+id/totalAvaliacoes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignRight="@id/texto"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <!--<TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Média das avaliações: "
+                    />-->
+                <!--<TextView
+                    android:id="@+id/mediaAvaliacoes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>-->
 
             </LinearLayout>
             <RatingBar
@@ -91,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:stepSize="1"
+                android:layout_marginTop="50dp"
                 />
             <Button
                 android:onClick="onClickAvaliar"
