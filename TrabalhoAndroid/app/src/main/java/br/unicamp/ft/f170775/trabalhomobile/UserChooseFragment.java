@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.media.Rating;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +18,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -37,7 +43,9 @@ public class UserChooseFragment extends AppCompatActivity{
     private DatabaseReference shoppings;
     private DatabaseReference mercados;
     private DatabaseReference restaurantes;
-
+    private TextView totalAvaliacoes;
+    private RatingBar mediaAvaliacoes;
+    FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +59,11 @@ public class UserChooseFragment extends AppCompatActivity{
         ImageView imageView = (ImageView) findViewById(R.id.imageLocal);
         TextView nomeLocal = (TextView) findViewById(R.id.nomeLocal);
         TextView enderecoLocal = (TextView) findViewById(R.id.enderecoLocal);
-        TextView totalAvaliacoes = (TextView) findViewById(R.id.totalAvaliacoes);
+        totalAvaliacoes = (TextView) findViewById(R.id.totalAvaliacoes);
         totalAvaliacoes.setText(""+local.totalStars());
-        TextView mediaAvaliacoes = (TextView) findViewById(R.id.mediaAvaliacoes);
-        mediaAvaliacoes.setText(""+local.mediaStars());
+        mediaAvaliacoes = (RatingBar) findViewById(R.id.mediaAvaliacoes);
+        mediaAvaliacoes.setRating((float) local.mediaStars());
+        mediaAvaliacoes.setEnabled(false);
         nomeLocal.setText(local.getName());
         enderecoLocal.setText(local.getEndereco());
         imageView.setImageResource(image);
@@ -62,6 +71,7 @@ public class UserChooseFragment extends AppCompatActivity{
         shoppings = mFirebaseDatabaseReference.child("Shoppings");
         mercados = mFirebaseDatabaseReference.child("Mercados");
         restaurantes = mFirebaseDatabaseReference.child("Restaurantes");
+        fragmentManager = getSupportFragmentManager();
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -72,41 +82,70 @@ public class UserChooseFragment extends AppCompatActivity{
 
     }
 
-
     public void onClickAvaliar(View v){
+        String nomeFirebase = "";
         switch(local.getName()){
             case "Subway":
-                System.out.println("Entrou no avaliar Subway");
-                verificaStarsRestaurantes(avaliacao, "Subway");
+                nomeFirebase = "Subway";
+                verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Jangada":
-                verificaStarsRestaurantes(avaliacao, "Jangada");
+                nomeFirebase = "Jangada";
+                verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Maverick":
-                verificaStarsRestaurantes(avaliacao, "Maverick");
+                nomeFirebase = "Maverick";
+                verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Mc'Donalds":
-                verificaStarsRestaurantes(avaliacao, "Mcdonalds");
+                nomeFirebase = "Subway";
+                verificaStarsRestaurantes(avaliacao, nomeFirebase);
                 break;
             case "Santa Rita":
-                verificaStarsMercado(avaliacao, "Santarita");
+                nomeFirebase = "Santarita";
+                verificaStarsMercado(avaliacao, nomeFirebase);
                 break;
             case "Enxuto":
-                verificaStarsMercado(avaliacao, "Enxuto");
+                nomeFirebase = "Enxuto";
+                verificaStarsMercado(avaliacao, nomeFirebase);
                 break;
             case "Covabra":
-                verificaStarsMercado(avaliacao, "Covabra");
+                nomeFirebase = "Covabra";
+                verificaStarsMercado(avaliacao, nomeFirebase);
                 break;
             case "Pátio Limeira Shopping":
-                verificaStarShopping(avaliacao, "Patio");
+                nomeFirebase = "Patio";
+                verificaStarShopping(avaliacao, nomeFirebase);
                 break;
             case "Shopping Center Limeira":
-                verificaStarShopping(avaliacao, "Center");
+                nomeFirebase = "Center";
+                verificaStarShopping(avaliacao, nomeFirebase);
                 break;
             case "Shopping Nações Limeira":
-                verificaStarShopping(avaliacao, "Nacoes");
+                nomeFirebase = "Nacoes";
+                verificaStarShopping(avaliacao, nomeFirebase);
                 break;
         }
+        atualizaInfo(nomeFirebase);
+    }
+
+    public void atualizaInfo(String nomeFirebase){
+        if(nomeFirebase == "Subway" || nomeFirebase == "Jangada" || nomeFirebase == "Maverick" || nomeFirebase == "Mcdonalds"){
+            restaurantes.child(nomeFirebase).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    local = dataSnapshot.getValue(Locals.class);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+
+        }
+        totalAvaliacoes.setText(""+local.totalStars());
+        mediaAvaliacoes.setText(""+local.mediaStars());
     }
 
     public void verificaStarShopping(int avaliacao, String nome){
@@ -191,6 +230,13 @@ public class UserChooseFragment extends AppCompatActivity{
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent in = new Intent(this , MapsActivity.class);
+        startActivity(in);
     }
 
 }

@@ -35,23 +35,43 @@ public class Locals implements Serializable{
         this.fiveStar = fiveStar;
     }
 
+    public void setOneStar(int oneStar) {
+        this.oneStar = oneStar;
+    }
+
+    public void setTwoStar(int twoStar) {
+        this.twoStar = twoStar;
+    }
+
+    public void setThreeStar(int threeStar) {
+        this.threeStar = threeStar;
+    }
+
+    public void setFourStar(int fourStar) {
+        this.fourStar = fourStar;
+    }
+
+    public void setFiveStar(int fiveStar) {
+        this.fiveStar = fiveStar;
+    }
+
     public int totalStars(){
         return getOneStar() + getTwoStar() + getThreeStar() + getFourStar() + getFiveStar();
     }
 
-    public String mediaStars(){
+    public double mediaStars(){
         double media;
         NumberFormat numberFormat = NumberFormat.getInstance(new Locale("pt", "BR"));
         numberFormat.setMaximumFractionDigits(2);
         if(totalStars() == 0){
-            return "0,00";
+            return 0;
         }else {
             double somaEstrelas = ((getOneStar() * 1) + (getTwoStar() * 2) + (getThreeStar() * 3) + (getFourStar() * 4)
                     + (getFiveStar() * 5));
             double divisor = totalStars();
             media = (somaEstrelas / divisor);
 
-            return numberFormat.format(media);
+            return media;
         }
     }
 
