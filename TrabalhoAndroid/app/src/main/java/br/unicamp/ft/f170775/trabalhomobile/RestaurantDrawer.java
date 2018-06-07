@@ -99,11 +99,6 @@ public class RestaurantDrawer extends Fragment
             }
         });
 
-        //local.add(new Locals("Subway", R.drawable.subway, "Av. Piracicaba, 569 - Vila Sao Joao, Limeira"));
-        //local.add(new Locals("Jangada", R.drawable.jangada, "Av. Ismael Ferreira dos Santos, 694 - Parque Egisto Ragazzo, Limeira"));
-        //local.add(new Locals("Maverick", R.drawable.maverick, "R. Paschoal Marmo, 908 - Jardim Piratininga, Limeira"));
-        //local.add(new Locals("McDonalds", R.drawable.mcdonalds, "Av. Comendador Agostinho Prada, 1731 - Jardim Maria Buchi Modeneis, Limeira"));
-
         lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,4 +109,10 @@ public class RestaurantDrawer extends Fragment
         });
         return lView;
     }
+
+    public void onStop(){
+        super.onStop();
+        local.clear();
+    }
+
 }

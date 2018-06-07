@@ -89,9 +89,6 @@ public class Shopping extends Fragment
                 Log.w(TAG,"Failed to read value.", error.toException());
             }
         });
-        //local.add(new Locals("Shopping Pátio Limeira", R.drawable.shoppingpatio, "R. Carlos Gomes, 1321 - Centro, Limeira "));
-        //local.add(new Locals("Shopping Naçôes", R.drawable.shoppingnacoes, "Rod. Dep. Laércio Côrte, 4500 - Jardim Res. Graminha III, Limeira"));
-
         lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +98,11 @@ public class Shopping extends Fragment
             }
         });
         return lView;
+    }
+
+    public void onStop(){
+        super.onStop();
+        local.clear();
     }
 
 }

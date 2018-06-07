@@ -82,20 +82,20 @@ public class Mercado extends Fragment
         mRecyclerView.setLayoutManager(mLayoutManager);
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                DataSnapshot remoteLocals = dataSnapshot.child("Mercados");
-                for (DataSnapshot remoteLocal: remoteLocals.getChildren()) {
-                    local.add(remoteLocal.getValue(Locals.class));
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    DataSnapshot remoteLocals = dataSnapshot.child("Mercados");
+                    for (DataSnapshot remoteLocal: remoteLocals.getChildren()) {
+                        local.add(remoteLocal.getValue(Locals.class));
+                    }
+                    passarArrayParaAdapter(local);
                 }
-                passarArrayParaAdapter(local);
-            }
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG,"Failed to read value.", error.toException());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w(TAG,"Failed to read value.", error.toException());
+                }
+            });
 
         lView.findViewById(R.id.buttonRestaurante).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +107,11 @@ public class Mercado extends Fragment
         });
 
         return lView;
+    }
+
+    public void onStop(){
+        super.onStop();
+        local.clear();
     }
 
 }
