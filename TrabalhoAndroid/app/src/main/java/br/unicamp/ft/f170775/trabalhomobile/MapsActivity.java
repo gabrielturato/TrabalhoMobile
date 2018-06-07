@@ -164,13 +164,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             Toast.makeText(this,"Pressione o botão buscar", Toast.LENGTH_LONG).show();
             //Fazer busca automatica
         }
-        /*Button button = (Button) findViewById(R.id.button_Busca);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                geoLocate();
-            }
-        });*/
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -291,6 +285,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(!title.equals("Minha Localização")){
+            mMap.clear();
             MarkerOptions options = new MarkerOptions()
                     .position(latLng)
                     .title(title);
