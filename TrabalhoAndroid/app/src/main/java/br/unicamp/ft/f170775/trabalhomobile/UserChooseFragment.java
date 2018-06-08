@@ -145,6 +145,8 @@ public class UserChooseFragment extends AppCompatActivity{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     local = dataSnapshot.getValue(Locals.class);
+                    totalAvaliacoes.setText(""+local.totalStars());
+                    mediaAvaliacoes.setRating((float) local.mediaStars());
                 }
 
                 @Override
@@ -153,6 +155,34 @@ public class UserChooseFragment extends AppCompatActivity{
                 }
             });
 
+        }else if(nomeFirebase == "Covabra" || nomeFirebase == "Enxuto" || nomeFirebase == "Santarita") {
+            mercados.child(nomeFirebase).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    local = dataSnapshot.getValue(Locals.class);
+                    totalAvaliacoes.setText("" + local.totalStars());
+                    mediaAvaliacoes.setRating((float) local.mediaStars());
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    System.out.println("The read failed: " + databaseError.getCode());
+                }
+            });
+        }else{
+                shoppings.child(nomeFirebase).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        local = dataSnapshot.getValue(Locals.class);
+                        totalAvaliacoes.setText(""+local.totalStars());
+                        mediaAvaliacoes.setRating((float) local.mediaStars());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        System.out.println("The read failed: " + databaseError.getCode());
+                    }
+                });
         }
     }
 
