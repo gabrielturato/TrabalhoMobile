@@ -49,6 +49,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".UserChooseFragment"
             android:label="Informações do Local"
             android:theme="@style/AppTheme.NoActionBar" />
