@@ -244,6 +244,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (status.isSuccess()){
                     showLogin.setText(R.string.do_login);
                     signInButton.setVisibility(View.VISIBLE);
+                    Toast.makeText(MapsActivity.this, "Logout realizado com sucesso", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(MapsActivity.this, "Não foi possivel encerrar sessão", Toast.LENGTH_SHORT).show();
                 }
